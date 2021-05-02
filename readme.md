@@ -3,7 +3,7 @@ Project:- Scheduler bot using zulip API
 -------------------------------------------------------------------------
 Command used 
 
-The Schedular bot is used to schedule a  message for a particular timeframe.
+The Scheduler bot is used to schedule a  message for a particular timeframe.
 This bot can help in colborating with the offshore team especially with a 
 timezone gap.
 
@@ -33,6 +33,3 @@ We may schedule a private message or a stream:-
 	message_schedule 02-05-2021-04-46 test_bot-bot Castle > Hey guys how is the project going on!
 _____________________________________________________________________________________________________
 The demo can be found here :- https://www.youtube.com/watch?v=SvTMxhX1Fto  
-
-(please download the video for preview in better quality) 
-All the code required to run this bot can be found https://github.com/jayant-ism/hackfest_zulip/tree/master.
