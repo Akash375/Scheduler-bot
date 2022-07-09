@@ -85,25 +85,6 @@ function pattern_register_bot(message_list) {
     return 0 ; 
 }
 var prevMsgData;
-function vaields(datetime)
-{
-    value = current_time() ; 
-    for(itr = 0 ; itr < value.length ;itr++ )
-    {
-        if(value[itr] >  datetime[itr])
-        {   
-      //      console.log(datetime) ;
-
-        //    console.log(value) ;
-         //   console.log(itr) ; 
-
-            return 1 ; 
-        }
-
-    }
-    return 1 ; 
-
-}
 
 function findJson(message,sender_id,type,receiver_id,topic,date_time){
 
@@ -361,7 +342,7 @@ const { send } = require('process');
         
             prevMsgData=await client.messages.retrieve(readParams);
             registration =await client.messages.retrieve(reg_parameter);
-            console.log("Test: " + prevMsgData);
+            console.log("Checking...");
             for( var i=0;i<registration.messages.length;i++)
             {
                 pattern_register_bot(registration.messages[i]) ;
