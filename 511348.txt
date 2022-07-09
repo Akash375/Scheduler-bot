@@ -1,0 +1,4 @@
+[api]
+email=user511348@prjtesting.zulipchat.com
+key=7cd3KnzV7NmWQDpVjvBfTEd6fPytakDm
+site=https://prjtesting.zulipchat.com

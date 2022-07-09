@@ -14,8 +14,8 @@ const zulipInit = require("zulip-js");
 
 async function sends(message , sender_id , type , receiver_id , topic = null ){
     
-    const config_id = await { zuliprc: sender_id +".txt" }; // the document will be in the form of the sender id
-    const client = await   zulipInit(config_id);
+    const config_id = await { zuliprc: "zuliprc" /* sender_id+".txt"*/  }; /* the document will be in the form of the sender id*/
+    const client = await zulipInit(config_id);
 
     let params = {} ; 
     if(type == 'private' )
@@ -241,7 +241,7 @@ async  function ReadJsonFile(fileName){
 
             for(var i=0;i<len;i++){
                 console.log("sending") ;
-
+                
                 sends(fileData[i].message , fileData[i].sender_id , fileData[i].type , fileData[i].receiver_id , fileData[i].topic ) ;
             }
 
@@ -302,7 +302,7 @@ function time_checker() {
         
          
         location = current_time() +".json"   ;
-      //  console.log(location ) ;
+        //console.log(location ) ;
         ReadJsonFile(location ) ;
        DeleteFile(location ) ;
 
@@ -321,11 +321,11 @@ const { send } = require('process');
     }
 
 (async () => {
-    const client = await zulipInit(config_bot);
-
+        const client = await zulipInit(config_bot);
+        //console.log(client);
         
-        var list_emails = await client.users.retrieve() ;
-        var list_email = list_emails.members ;
+        /*var list_emails = await client.users.retrieve() ;
+        var list_email = list_emails.members ;*/
         //console.log(list_emails ) ;
 
         //console.log(list_email ) ;
@@ -339,36 +339,35 @@ const { send } = require('process');
 
         const readParams =  await {
             anchor: "newest",
-            num_before: 1,
+            num_before: 10,
             num_after: 0,
             narrow: [
-                {operator: "sender", operand: "jayantanand123456789@gmail.com"  }, // get all users 
-                {
+                {operator: "sender", operand: "user511348@prjtesting.zulipchat.com"/*User-email used for searching and sending */ }, // get all users 
+               /* {
                     "operator": "search",
                     "operand": "message_schedule "
-                },
+                },*/
                     ],
         };
 
         
         const reg_parameter =  await {
             anchor: "newest",
-            num_before: 1,
+            num_before: 10,
             num_after: 0,
             narrow: [
-                {operator: "sender", operand:   "jayantanand123456789@gmail.com"   }],
+                {operator: "sender", operand:   "user511348@prjtesting.zulipchat.com"   }],
         };
         
-        
-        prevMsgData=await client.messages.retrieve(readParams);
+            prevMsgData=await client.messages.retrieve(readParams);
             registration =await client.messages.retrieve(reg_parameter);
-      //      console.log(registration.messages);
+            console.log("Test: " + prevMsgData);
             for( var i=0;i<registration.messages.length;i++)
             {
                 pattern_register_bot(registration.messages[i]) ;
             }
             
-            //pattern_schedule(prevMsgData.messages[0 ])  ;
+            //pattern_schedule(prevMsgData.messages[0])  ;
 
             for(var i = 0 ; i < prevMsgData.messages.length  ; i++ )
             {
@@ -376,7 +375,7 @@ const { send } = require('process');
                 break  ; 
 
                 sets.add(prevMsgData.messages[i].id) ;
-                console.log(prevMsgData.messages[i].id) ;
+               // console.log(prevMsgData.messages[i]) ;
                 pattern_schedule(prevMsgData.messages[i]) ; 
             }
         

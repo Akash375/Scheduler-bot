@@ -1,0 +1,4 @@
+[api]
+email=anandakash375@gmail.com
+key=zaTbqtdMrVqkT1fGn2hmc54CZkQnYbhA
+site=https://hackfestwinner.zulipchat.com
