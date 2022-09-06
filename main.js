@@ -14,9 +14,9 @@ const zulipInit = require("zulip-js");
 
 async function sends(message , sender_id , type , receiver_id , topic = null ){
     
-    const config_id = await { zuliprc: "zuliprc" /* sender_id+".txt"*/  }; /* the document will be in the form of the sender id*/
+    const config_id = await { zuliprc: sender_id+".txt"  }; /* the document will be in the form of the sender id*/
     const client = await zulipInit(config_id);
-
+    //console.log(client);
     let params = {} ; 
     if(type == 'private' )
     {
@@ -41,10 +41,7 @@ async function sends(message , sender_id , type , receiver_id , topic = null ){
 const config_bot = { zuliprc: "zuliprc" };
 
 function fileCreator(emailId,Key,userId, urls){
-    
-    // Get the 100 last messages sent by "iago@zulip.com" to the stream "Verona"
-    //clientData=await client.messages.retrieve(readParams);
-    //console.log(clientData.messages[0].sender_id);
+
     
     fs.writeFile(userId+'.txt','[api]\nemail='+emailId+'\nkey='+Key +'\nsite=https://'+urls +'.zulipchat.com',
              function (err) {
@@ -293,6 +290,7 @@ function time_checker() {
 
 const { htmlToText } = require('html-to-text');
 const { send } = require('process');
+const { default: zuliprc } = require('zulip-js/lib/zuliprc');
     function extractContent(content){
         const text = htmlToText(content, {
             wordwrap: null
@@ -324,10 +322,10 @@ const { send } = require('process');
             num_after: 0,
             narrow: [
                 {operator: "sender", operand: "user511348@prjtesting.zulipchat.com"/*User-email used for searching and sending */ }, // get all users 
-               /* {
+                {
                     "operator": "search",
                     "operand": "message_schedule "
-                },*/
+                }
                     ],
         };
 
@@ -337,7 +335,7 @@ const { send } = require('process');
             num_before: 10,
             num_after: 0,
             narrow: [
-                {operator: "sender", operand:   "user511348@prjtesting.zulipchat.com"   }],
+                {operator: "sender", operand: "user511348@prjtesting.zulipchat.com"   }],
         };
         
             prevMsgData=await client.messages.retrieve(readParams);
@@ -356,7 +354,7 @@ const { send } = require('process');
                 break  ; 
 
                 sets.add(prevMsgData.messages[i].id) ;
-               // console.log(prevMsgData.messages[i]) ;
+                //console.log(prevMsgData.messages[i]) ;
                 pattern_schedule(prevMsgData.messages[i]) ; 
             }
         
